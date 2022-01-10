@@ -1,4 +1,4 @@
-package com.javidev.coffes.ui.screens.fedScreen
+package com.javidev.coffes.ui.screens.fed
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding

@@ -8,12 +8,15 @@ import androidx.navigation.compose.rememberNavController
 import com.javidev.coffes.data.Origen
 import com.javidev.coffes.ui.screens.DetailScreen
 import com.javidev.coffes.ui.screens.FedScreen
+import com.javidev.coffes.ui.screens.checkout.CheckoutScreen
 
 @Composable
 fun MyNavigation() {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "fedScreen") {
+
+        // MAIN LISTADO
         composable("fedScreen") {
             FedScreen {
                 // onclick
@@ -23,6 +26,7 @@ fun MyNavigation() {
             }
         }
 
+        // DETALLE DEL ITEM
         composable("detail/{mierda}") { backStackEntry ->
             val origen = backStackEntry.arguments?.getString("mierda") ?: "defaul"
             // lo converimos a objeto origen
@@ -35,9 +39,21 @@ fun MyNavigation() {
                         popUpTo("fedScreen") // este metodo vuelve al activity del que venimos sin crear uno nuevo
                     }
                 },
-                onclickCheck = {}
+                onclickCheck = {
+                    navController.navigate("checkout"){
+                        launchSingleTop = true
+                        popUpTo("detail")
+                    }
+                }
             )
         }
+
+        // CHECKOUT SCREEN
+        composable("checkout"){
+            CheckoutScreen()
+        }
+
+
 
     }
 

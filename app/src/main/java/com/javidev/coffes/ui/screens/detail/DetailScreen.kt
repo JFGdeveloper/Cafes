@@ -24,6 +24,7 @@ import com.javidev.coffes.ui.components.CustomApBar
 import com.javidev.coffes.ui.components.CustomButton
 import com.javidev.coffes.ui.components.MyScaffold
 import com.javidev.coffes.ui.components.navigationAction
+import com.javidev.coffes.ui.screens.detail.InformationProduct
 
 @Composable
 fun DetailScreen(pais: Origen,onclick: ()->Unit, onclickCheck: () -> Unit) {
@@ -42,28 +43,7 @@ fun DetailScreen(pais: Origen,onclick: ()->Unit, onclickCheck: () -> Unit) {
                 modifier = Modifier.height(400.dp)
             )
 
-            Column(modifier = Modifier.padding(16.dp)) {
-                // titulo
-                Text(text = "Cafe de ${pais.origin}", style = MaterialTheme.typography.h3)
-                // summary
-                Text(text = "Alto contenido en cafeina", style = MaterialTheme.typography.caption)
-                Spacer(modifier = Modifier.height(8.dp))
-                
-                //body
-                Text(text = "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.")
-                Spacer(modifier = Modifier.height(16.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)){
-                   Text(
-                       text = "$ 35.0 USD",
-                       style = MaterialTheme.typography.h5,
-                       textAlign = TextAlign.End
-                   ) 
-                    
-                    CustomButton(label = "Continuar") {
-                        onclickCheck()
-                    }
-                }
-            }
+            InformationProduct(pais, onclickCheck)
         }
     }
 
