@@ -13,26 +13,30 @@ import com.javidev.coffes.ui.screens.FedScreen
 fun MyNavigation() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "fedScreen"){
-        composable("fedScreen"){
-            FedScreen{
+    NavHost(navController = navController, startDestination = "fedScreen") {
+        composable("fedScreen") {
+            FedScreen {
                 // onclick
-                navController.navigate("detail/${it}"){
-                    launchSingleTop= true // si ya esta creada no la vuelve a crear
+                navController.navigate("detail/${it}") {
+                    launchSingleTop = true // si ya esta creada no la vuelve a crear
                 }
             }
         }
 
-        composable("detail/{mierda}"){ backStackEntry ->
+        composable("detail/{mierda}") { backStackEntry ->
             val origen = backStackEntry.arguments?.getString("mierda") ?: "defaul"
             // lo converimos a objeto origen
             val objOrigen = Origen.valueOf(origen)
-            DetailScreen(objOrigen){
-                // ONCLICK
-                navController.navigate("fedScreen"){
-                    popUpTo("fedScreen") // este metodo vuelve al activity del que venimos sin crear uno nuevo
-                }
-            }
+            DetailScreen(
+                pais = objOrigen,
+                onclick = {
+                    // ONCLICK
+                    navController.navigate("fedScreen") {
+                        popUpTo("fedScreen") // este metodo vuelve al activity del que venimos sin crear uno nuevo
+                    }
+                },
+                onclickCheck = {}
+            )
         }
 
     }
