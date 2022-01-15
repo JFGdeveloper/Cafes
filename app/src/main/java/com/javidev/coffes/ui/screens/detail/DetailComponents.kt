@@ -7,39 +7,39 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.javidev.coffes.data.Origen
+import com.javidev.coffes.data.Product
 import com.javidev.coffes.ui.components.CustomButton
 
 
 @Composable
-fun InformationProduct(pais: Origen, onclickCheck: () -> Unit) {
+fun InformationProduct(pais: Product, onclickCheck: () -> Unit) {
     Column(modifier = Modifier.padding(16.dp)) {
         // titulo
-        Text(text = "Cafe de ${pais.origin}", style = MaterialTheme.typography.h3)
+        Text(text = "Cafe de ${pais.origin.lowercase()}", style = MaterialTheme.typography.h3)
         // summary
-        Text(text = "Alto contenido en cafeina", style = MaterialTheme.typography.caption)
+        Text(text = "${pais.getSummary()}", style = MaterialTheme.typography.caption)
         Spacer(modifier = Modifier.height(8.dp))
 
         //body
         Text(
-            text = "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.",
+            text= pais.getTexto(),
             textAlign = TextAlign.Justify
         )
         Spacer(modifier = Modifier.height(16.dp))
-        RowButton(onclickCheck)
+        RowButton(pais,onclickCheck)
     }
 }
 
 @Composable
-private fun RowButton(onclickCheck: () -> Unit) {
+private fun RowButton(pais: Product,onclickCheck: () -> Unit) {
     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
-            text = "$ 35.0 USD",
+            text = "${pais.getMoneda()}${pais.getPrecio()}",
             style = MaterialTheme.typography.h5,
             textAlign = TextAlign.End
         )
 
-        CustomButton(label = "Continuar") {
+        CustomButton(label = "Continuar", modifier = Modifier.fillMaxWidth()) {
             onclickCheck()
         }
     }

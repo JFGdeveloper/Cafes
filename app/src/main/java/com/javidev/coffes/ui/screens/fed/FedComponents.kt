@@ -8,15 +8,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.javidev.coffes.data.Origen
+import com.javidev.coffes.data.Product
 import com.javidev.coffes.ui.components.BodyText
 import com.javidev.coffes.ui.components.ProducCard
 import com.javidev.coffes.ui.components.Title
 
 @Composable
 fun ListCoffes(
-    paises: List<Origen>,
-    onClick: (Origen) -> Unit
+    paises: List<Product>,
+    onClick: (Product) -> Unit
 ) {
     LazyColumn {
         item {
@@ -24,10 +24,7 @@ fun ListCoffes(
         }
         items(paises) { origen ->
             ProducCard(
-                summary = "El cafe contiene cafeina",
-                price = 20.5,
-                moneda = "€",
-                origen = origen,
+                pais = origen,
                 onClick = { onClick(origen) }
             )
         }
@@ -39,7 +36,7 @@ fun ListCoffes(
 @Composable
 fun Encabezado() {
     Column(modifier = Modifier.padding(8.dp)) {
-        Title(titulo = "listado")
+        Title(titulo = "BIENVENIDO")
         BodyText()
     }
 }

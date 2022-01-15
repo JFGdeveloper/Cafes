@@ -3,9 +3,8 @@ package com.javidev.coffes.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.javidev.coffes.data.Origen
+import com.javidev.coffes.data.Product
 import com.javidev.coffes.ui.screens.DetailScreen
 import com.javidev.coffes.ui.screens.FedScreen
 import com.javidev.coffes.ui.screens.checkout.CheckoutScreen
@@ -27,10 +26,10 @@ fun MyNavigation() {
         }
 
         // DETALLE DEL ITEM
-        composable("detail/{mierda}") { backStackEntry ->
-            val origen = backStackEntry.arguments?.getString("mierda") ?: "defaul"
+        composable("detail/{id}") { backStackEntry ->
+            val origen = backStackEntry.arguments?.getString("id") ?: "defaul"
             // lo converimos a objeto origen
-            val objOrigen = Origen.valueOf(origen)
+            val objOrigen = Product.valueOf(origen)
             DetailScreen(
                 pais = objOrigen,
                 onclick = {
@@ -40,8 +39,8 @@ fun MyNavigation() {
                     }
                 },
                 onclickCheck = {
-                    navController.navigate("checkout"){
-                        launchSingleTop = true
+                    navController.navigate("checkout/${objOrigen}"){
+                        //launchSingleTop = true
                         popUpTo("detail")
                     }
                 }
@@ -49,8 +48,15 @@ fun MyNavigation() {
         }
 
         // CHECKOUT SCREEN
-        composable("checkout"){
-            CheckoutScreen()
+        composable("checkout/{origin}"){
+            val origen = it.arguments?.getString("origin") ?: "defaul"
+            // lo converimos a objeto origen
+            val objOrigen = Product.valueOf(origen)
+            CheckoutScreen(objOrigen){
+                navController.navigate("detail/${objOrigen}"){
+                    popUpTo("detail")
+                }
+            }
         }
 
 

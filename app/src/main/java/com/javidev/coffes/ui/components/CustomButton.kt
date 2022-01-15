@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 fun CustomButton(label: String, modifier: Modifier = Modifier,onclick: ()->Unit ) {
     Button(
         onClick = { onclick() },
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         shape = RoundedCornerShape(30.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = MaterialTheme.colors.primary,
