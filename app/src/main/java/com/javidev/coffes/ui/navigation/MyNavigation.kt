@@ -21,7 +21,9 @@ fun MyNavigation() {
             FedScreen {
                 // onclick
                 navController.navigate("detail/${it}") {
-                    launchSingleTop = true // si ya esta creada no la vuelve a crear
+                    //launchSingleTop = true // si ya esta creada no la vuelve a crear
+                    popUpTo("fedScreen")
+
                 }
             }
         }
@@ -34,14 +36,19 @@ fun MyNavigation() {
             DetailScreen(
                 pais = objOrigen,
                 onclick = {
-                    // ONCLICK
+                    // ONCLICK APPBAR
                     navController.navigate("fedScreen") {
-                        popUpTo("fedScreen") // este metodo vuelve al activity del que venimos sin crear uno nuevo
+
+                        // este metodo muestra la pantalla que esta mas arriba o la ultima creada del nombre que le paso
+                        popUpTo("fedScreen") {inclusive = true}
+
                     }
                 },
+                // ONCLICK BOTON CHECKOUT
                 onclickCheck = {
                     navController.navigate("checkout/${objOrigen}") {
-                        //launchSingleTop = true
+
+                        // este metodo muestra la pantalla que esta mas arriba o la ultima creada del nombre que le paso
                         popUpTo("detail")
                     }
                 }
@@ -57,7 +64,8 @@ fun MyNavigation() {
                 objOrigen,
                 onclick = {
                     navController.navigate("detail/${objOrigen}") {
-                        popUpTo("detail")
+                        popUpTo("fedScreen")
+
                     }
                 }
             )
