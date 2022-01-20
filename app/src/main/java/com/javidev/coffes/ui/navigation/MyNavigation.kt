@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.javidev.coffes.data.Product
+import com.javidev.coffes.ui.components.DialogEjem
 import com.javidev.coffes.ui.screens.DetailScreen
 import com.javidev.coffes.ui.screens.FedScreen
 import com.javidev.coffes.ui.screens.checkout.CheckoutScreen
@@ -39,7 +40,7 @@ fun MyNavigation() {
                     }
                 },
                 onclickCheck = {
-                    navController.navigate("checkout/${objOrigen}"){
+                    navController.navigate("checkout/${objOrigen}") {
                         //launchSingleTop = true
                         popUpTo("detail")
                     }
@@ -48,17 +49,19 @@ fun MyNavigation() {
         }
 
         // CHECKOUT SCREEN
-        composable("checkout/{origin}"){
+        composable("checkout/{origin}") {
             val origen = it.arguments?.getString("origin") ?: "defaul"
             // lo converimos a objeto origen
             val objOrigen = Product.valueOf(origen)
-            CheckoutScreen(objOrigen){
-                navController.navigate("detail/${objOrigen}"){
-                    popUpTo("detail")
+            CheckoutScreen(
+                objOrigen,
+                onclick = {
+                    navController.navigate("detail/${objOrigen}") {
+                        popUpTo("detail")
+                    }
                 }
-            }
+            )
         }
-
 
 
     }

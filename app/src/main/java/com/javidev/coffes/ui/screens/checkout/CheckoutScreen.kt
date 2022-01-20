@@ -1,5 +1,6 @@
 package com.javidev.coffes.ui.screens.checkout
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -10,6 +11,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,6 +28,8 @@ fun CheckoutScreen(pais: Product, onclick: () -> Unit) {
     var telefono by remember { mutableStateOf("") }
     var direccion by remember { mutableStateOf("") }
     val envio by remember { mutableStateOf(10)}
+    var visivility by remember{ mutableStateOf(false)}
+    var toast = false
 
     MyScaffold(title = pais.origin, icon = icon, onClick = { onclick() }) {
 
@@ -116,8 +120,18 @@ fun CheckoutScreen(pais: Product, onclick: () -> Unit) {
                                     .fillMaxWidth()
                                     .padding(start = 50.dp)
                             ) {
-
+                                visivility = !visivility
                             }
+                        }
+
+                        DialogEjem(visivility = visivility){
+                            visivility = false
+                            toast = !toast
+
+                        }
+
+                        if (toast){
+                            Toast.makeText(LocalContext.current,"SU PEDIDO HA SIDO REALIZADO",Toast.LENGTH_SHORT).show()
                         }
 
 
@@ -131,7 +145,7 @@ fun CheckoutScreen(pais: Product, onclick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable()
 fun PreCheckout() {
-    CheckoutScreen(pais = Product.CRI) {}
+    CheckoutScreen(pais = Product.CRI, onclick = {})
 
 }
 
