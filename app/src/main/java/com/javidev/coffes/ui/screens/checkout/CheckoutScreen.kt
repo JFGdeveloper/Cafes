@@ -29,7 +29,7 @@ fun CheckoutScreen(pais: Product, onclick: () -> Unit) {
     var direccion by remember { mutableStateOf("") }
     val envio by remember { mutableStateOf(10)}
     var visivility by remember{ mutableStateOf(false)}
-    var toast = false
+    val context = LocalContext.current
 
     MyScaffold(title = pais.origin, icon = icon, onClick = { onclick() }) {
 
@@ -120,18 +120,14 @@ fun CheckoutScreen(pais: Product, onclick: () -> Unit) {
                                     .fillMaxWidth()
                                     .padding(start = 50.dp)
                             ) {
-                                visivility = !visivility
+                                visivility = true
                             }
                         }
 
                         DialogEjem(visivility = visivility){
+                              Toast.makeText(context,"SU PEDIDO HA SIDO REALIZADO",Toast.LENGTH_SHORT).show()
                             visivility = false
-                            toast = !toast
 
-                        }
-
-                        if (toast){
-                            Toast.makeText(LocalContext.current,"SU PEDIDO HA SIDO REALIZADO",Toast.LENGTH_SHORT).show()
                         }
 
 

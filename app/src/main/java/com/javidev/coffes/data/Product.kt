@@ -36,14 +36,6 @@ enum class Product(val origin:String) {
         }
     }
 
-    fun getId():Int{
-        return  when(this){
-            COL -> 0
-            BRA -> 1
-            CRI -> 2
-            NIC -> 3
-        }
-    }
 
     fun getPrecio(): Double {
         return  when(this){
